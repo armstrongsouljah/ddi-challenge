@@ -4,8 +4,8 @@ export default {
     state: {
         errors: null,
         success: null,
-        userDetails: null
-
+        userDetails: null,
+        isLoggedIn: false
     },
     getters: {
         GET_DETAILS (state) {
@@ -13,6 +13,9 @@ export default {
         },
         GET_ERRORS (state) {
             return state.errors
+        },
+        GET_LOGGED_IN (state) {
+            return state.isLoggedIn
         }
     },
     mutations: {
@@ -24,6 +27,9 @@ export default {
         },
         SET_DETAILS (state, payload) {
             state.userDetails = payload
+        },
+        SET_IS_LOGGED_IN (state, payload) {
+          state.isLoggedIn = payload
         }
     },
     actions: {
@@ -34,13 +40,15 @@ export default {
            const {email, password} = loginData
            const user = await results[0].filter(user => user.email === email && user.password === password)
            if(user.length) {
-               localStorage.setItem('loggedin', true)
+            //    localStorage.setItem('loggedin', true)
+            commit('SET_IS_LOGGED_IN', true)
                commit('SET_DETAILS', user[0])
                return commit('SET_SUCCESS', true)
            }
            commit('SET_SUCCESS', false)
            commit('SET_ERRORS', 'Invalid Username or Passqword')
-           localStorage.setItem('loggedIn', false)
+        //    localStorage.setItem('loggedIn', false)
+        commit('SET_IS_LOGGED_IN', false)
        }
     }
 }

@@ -34,7 +34,7 @@ export default {
         }
     },
     computed: {
-      ...mapGetters(['GET_DETAILS', 'GET_ERRORS']),
+      ...mapGetters(['GET_DETAILS', 'GET_ERRORS', 'GET_LOGGED_IN']),
     },
     methods: {
         ...mapActions(['doLogin']),
@@ -49,9 +49,10 @@ export default {
 
     },
     watch: {
-        GET_DETAILS(newVal, oldVal) {
-           const loggedIn = localStorage.getItem('loggedIn')
-           if(loggedIn) this.$router.push('home')
+        GET_LOGGED_IN(newVal, oldVal) {
+        //    const loggedIn = localStorage.getItem('loggedIn')
+          if(newVal) this.$router.push('home')
+        //    if(loggedIn) this.$router.push('home')
         },
         GET_ERRORS (newVal, oldVal) {
             this.error = newVal

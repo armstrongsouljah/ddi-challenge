@@ -20,6 +20,10 @@ const router = new VueRouter({
         name: 'landing',
         component: Login
     },
+    {
+        path:'*',
+        redirect: '/'
+    }
   ]
 })
 
